@@ -1,9 +1,11 @@
-import { ConvexAiChat } from "@/aiChat";
 import { Conversation, Urgency } from "@/App";
-import { Link } from "@/components/typography/link";
-import { Button } from "@/components/ui/button";
 import { Avatar, Box, Card, Flex, Heading, Table, Text } from '@radix-ui/themes';
-import { Pie } from 'react-chartjs-2';
+import chestPainLogo from './chest_pain_logo.png';
+import breathingDifficultyLogo from './breathing_difficulty_logo.png';
+import fallInjuryLogo from './fall_injury_logo.png';
+import seizureLogo from './seizure_logo.png';
+import strokeSymptomsLogo from './stroke_symptoms_logo.png';
+import undecidedLogo from './undecided_logo.png';
 
 type Props = {
     title: string,
@@ -25,10 +27,26 @@ const getRowColor = (urgency: Urgency | null) => {
     }
 };
 
+enum MedicalEmergencyType {
+    CHEST_PAIN = "chest pain",
+    BREATHING_DIFFICULTY = "breathing difficulty",
+    FALL_INJURY = "fall injury",
+    SEIZURE = "seizure",
+    STROKE_SYMPTOMS = "stroke symptoms",
+    UNDECIDED = "undecided"
+  }
+
+const logoMap: Record<MedicalEmergencyType, string> = {
+    [MedicalEmergencyType.CHEST_PAIN]: chestPainLogo,
+    [MedicalEmergencyType.BREATHING_DIFFICULTY]: breathingDifficultyLogo,
+    [MedicalEmergencyType.FALL_INJURY]: fallInjuryLogo,
+    [MedicalEmergencyType.SEIZURE]: seizureLogo,
+    [MedicalEmergencyType.STROKE_SYMPTOMS]: strokeSymptomsLogo,
+    [MedicalEmergencyType.UNDECIDED]: undecidedLogo,
+  };
+
 function EmsCallContainer(props: Props) {
     const {title, conversations} = props;
-
-    
 
     return (
         <Box width="800px" mt="20px">
@@ -39,9 +57,12 @@ function EmsCallContainer(props: Props) {
                         {conversations.map((conversation) => (
                             <Table.Row>
                             <Box 
-                                className={`${getRowColor(conversation.urgency)} rounded-sm mb-2`}
+                                className={`${getRowColor(conversation.urgency)} rounded-md mb-2`}
                             >
                                 <Table.RowHeaderCell>
+                                    {conversation.medicalEmergencyType && 
+                                        (<Avatar src={logoMap[conversation.medicalEmergencyType]} fallback={undecidedLogo} size="2" className="rounded-full" />
+                                    )}                                       
                                     {conversation.title || "[New Call]"}
                                 </Table.RowHeaderCell>
                             </Box>

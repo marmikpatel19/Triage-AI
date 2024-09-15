@@ -13,6 +13,7 @@ export type Conversation = {
   dispatchConnected: boolean,
   EMSName: String | null,
   urgency: Urgency | null,
+  medicalEmergencyType: MedicalEmergencyType | null,
   messages: Message[]
 }
 
@@ -34,6 +35,15 @@ export enum Urgency {
   UNDECIDED="undecided"
 }
 
+export enum MedicalEmergencyType {
+  CHEST_PAIN = "chest pain",
+  BREATHING_DIFFICULTY = "breathing difficulty",
+  FALL_INJURY = "fall injury",
+  SEIZURE = "seizure",
+  STROKE_SYMPTOMS = "stroke symptoms",
+  UNDECIDED = "undecided"
+}
+
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
 // Register necessary elements with Chart.js
@@ -50,6 +60,7 @@ function App() {
       dispatchConnected: false,
       EMSName: null,
       urgency: Urgency.HIGH,
+      medicalEmergencyType: MedicalEmergencyType.CHEST_PAIN,
       messages: [
         {
           id: "1",
@@ -71,6 +82,7 @@ function App() {
       dispatchConnected: false,
       EMSName: null,
       urgency: Urgency.UNDECIDED,
+      medicalEmergencyType: MedicalEmergencyType.UNDECIDED, // Default to UNDECIDED
       messages: [
         {
           id: "14",
@@ -92,6 +104,7 @@ function App() {
       dispatchConnected: true,
       EMSName: "EMS Team 7",
       urgency: Urgency.HIGH,
+      medicalEmergencyType: MedicalEmergencyType.CHEST_PAIN,
       messages: [
         {
           id: "1",
@@ -118,6 +131,7 @@ function App() {
       dispatchConnected: true,
       EMSName: "EMS Team 3",
       urgency: Urgency.HIGH,
+      medicalEmergencyType: MedicalEmergencyType.FALL_INJURY,
       messages: [
         {
           id: "1",
@@ -149,6 +163,7 @@ function App() {
       dispatchConnected: true,
       EMSName: "EMS Team 2",
       urgency: Urgency.MEDIUM,
+      medicalEmergencyType: MedicalEmergencyType.SEIZURE,
       messages: [
         {
           id: "1",
@@ -180,6 +195,7 @@ function App() {
       dispatchConnected: true,
       EMSName: "EMS Team 1",
       urgency: Urgency.LOW,
+      medicalEmergencyType: MedicalEmergencyType.UNDECIDED, // Default to UNDECIDED
       messages: [
         {
           id: "1",
