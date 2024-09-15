@@ -45,11 +45,13 @@ export enum MedicalEmergencyType {
 }
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { useState } from "react";
 
 // Register necessary elements with Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function App() {
+  const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
 
   const mockData: Conversation[] = [
     {
@@ -239,100 +241,59 @@ function App() {
   };
 
   return (
-    <Flex justify="center" justify-text="left" align="center"  >
-      <Box>
-        <Card size="5">
-          <Heading align="left" mb="30px">Triage AI</Heading>
+    <>
+      {selectedConversation ? (
+        <></> 
+      ) : (
+        <Flex justify="center" align="center">
+          <Box>
+            <Card size="5">
+              <Heading align="left" mb="30px">Triage AI</Heading>
 
-          <Flex gap="7" align="center" mb="140px">
-            <Box width="175px" height="130px">
-              <Card>
-                <Flex direction="column">
-                  <Box >
-                    <Text size="9" weight="bold" mb="10px" ml="40px">
-                      {mockData.filter((conversation) => conversation.isLive === true).length}
-                    </Text>
-                  </Box>
-                  <Text size="5" weight="bold" align="center">
-                    Live Calls
-                  </Text>
-                </Flex>
-              </Card>
-            </Box>
-            <Box width="175px" height="130px">  
-              <Card>
-                <Pie data={data}/>
-                <Text size="5" weight="bold">Urgency Distribution</Text>
-              </Card>
-            </Box>
-            <Box width="175px" height="130px">
-              <Card>
-                <Pie data={triageAIData} />
-                <Text size="5" weight="bold" >Outcome Distribution</Text>
-              </Card>
-            </Box>
-          </Flex>
+              <Flex gap="7" align="center" mb="140px">
+                <Box width="175px" height="130px">
+                  <Card>
+                    <Flex direction="column">
+                      <Box>
+                        <Text size="9" weight="bold" mb="10px" ml="40px">
+                          {mockData.filter((conversation) => conversation.isLive).length}
+                        </Text>
+                      </Box>
+                      <Text size="5" weight="bold" align="center">
+                        Live Calls
+                      </Text>
+                    </Flex>
+                  </Card>
+                </Box>
+                <Box width="175px" height="130px">  
+                  <Card>
+                    <Pie data={data} />
+                    <Text size="5" weight="bold">Urgency Distribution</Text>
+                  </Card>
+                </Box>
+                <Box width="175px" height="130px">
+                  <Card>
+                    <Pie data={triageAIData} />
+                    <Text size="5" weight="bold">Outcome Distribution</Text>
+                  </Card>
+                </Box>
+              </Flex>
 
-          {/* <Box width="800px" height="500px">
-            <Card>
-              <Text size="5" weight="bold">Live EMS Calls</Text>
-              
+              <EmsCallContainer 
+                title="Live EMS Calls" 
+                conversations={mockData.filter((conversation) => conversation.isLive)} 
+                setSelectedConversation={setSelectedConversation} 
+              />
+              <EmsCallContainer 
+                title="Resolved EMS Calls" 
+                conversations={mockData.filter((conversation) => !conversation.isLive)} 
+                setSelectedConversation={setSelectedConversation} 
+              />
             </Card>
-          </Box> */}
-
-          <EmsCallContainer title="Live EMS Calls" conversations={mockData.filter((conversation) => conversation.isLive == true)}/>
-          <EmsCallContainer title="Resolved EMS Calls" conversations={mockData.filter((conversation) => conversation.isLive == false)}/>
-
-        </Card>
-      </Box>
-    </Flex>
-
-    // <main className="container max-w-2xl flex flex-col gap-8">
-    //   <h1 className="text-4xl font-extrabold my-8 text-center">
-    //     Triage AI
-    //   </h1>
-
-    //   <Box maxWidth="240px">
-    //     <Card>
-    //       <Flex gap="3" align="center">
-    //         <Avatar
-    //           size="3"
-    //           src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?&w=64&h=64&dpr=2&q=70&crop=focalpoint&fp-x=0.67&fp-y=0.5&fp-z=1.4&fit=crop"
-    //           radius="full"
-    //           fallback="T"
-    //         />
-    //         <Box>
-    //           <Text as="div" size="2" weight="bold">
-    //             Teodros Girmay
-    //           </Text>
-    //           <Text as="div" size="2" color="gray">
-    //             Engineering
-    //           </Text>
-    //         </Box>
-    //       </Flex>
-    //     </Card>
-    //   </Box>
-
-
-    //   {/* <p>Click the button to open the chat window</p>
-    //   <p>
-    //     <ConvexAiChat
-    //       convexUrl={import.meta.env.VITE_CONVEX_URL as string}
-    //       name="Lucky AI Bot"
-    //       infoMessage="AI can make mistakes. Verify answers."
-    //       welcomeMessage="Hey there, what can I help you with?"
-    //       renderTrigger={(onClick) => (
-    //         <Button onClick={onClick}>Open AI chat</Button>
-    //       )}
-    //     />
-    //   </p>
-    //   <p>
-    //     Check out{" "}
-    //     <Link target="_blank" href="https://docs.convex.dev/home">
-    //       Convex docs
-    //     </Link>
-    //   </p> */}
-    // // </main>
+          </Box>
+        </Flex>
+      )}
+    </>
   );
 }
 

@@ -1,9 +1,11 @@
 import { Conversation, Urgency } from "@/App";
 import { Box, Card, Table, Text } from '@radix-ui/themes';
+import { Dispatch, SetStateAction } from "react";
 
 type Props = {
     title: string,
-    conversations: Conversation[]
+    conversations: Conversation[],
+    setSelectedConversation: Dispatch<SetStateAction<Conversation | null>>
 }
 
 const getUrgencyColor = (urgency: Urgency | null) => {
@@ -22,7 +24,7 @@ const getUrgencyColor = (urgency: Urgency | null) => {
 };
 
 function EmsCallContainer(props: Props) {
-    const { title, conversations } = props;
+    const { title, conversations, setSelectedConversation } = props;
 
     return (
         <Box width="800px" mt="20px">
@@ -31,12 +33,15 @@ function EmsCallContainer(props: Props) {
                 <Table.Root>
                     <Table.Body>
                         {conversations.map((conversation) => (
-                            <Table.Row>
+                            <Table.Row 
+                                onClick={() => setSelectedConversation(conversation)}
+                                style={{ cursor: 'pointer' }} 
+                            >
                                 <Box 
                                     className="rounded-md mb-2 flex items-center"
                                     style={{ color: '#BB86FC' }}
                                 >
-                                    <Table.RowHeaderCell style={{ color: 'white' , fontWeight: '800'}}>
+                                    <Table.RowHeaderCell style={{ color: 'white', fontWeight: '800' }}>
                                         <Box 
                                             style={{
                                                 backgroundColor: getUrgencyColor(conversation.urgency),
