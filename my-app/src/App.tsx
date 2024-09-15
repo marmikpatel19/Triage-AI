@@ -47,6 +47,7 @@ export enum MedicalEmergencyType {
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { useState, useEffect } from "react";
 import Call from "./components/ui/call";
+import colors from './colors';
 
 // Register necessary elements with Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
