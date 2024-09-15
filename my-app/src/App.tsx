@@ -46,6 +46,7 @@ export enum MedicalEmergencyType {
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { useState } from "react";
+import Call from "./components/ui/call";
 
 // Register necessary elements with Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -243,7 +244,7 @@ function App() {
   return (
     <>
       {selectedConversation ? (
-        <></> 
+        <Call conversation={selectedConversation} setSelectedConversation={setSelectedConversation}/>
       ) : (
         <Flex justify="center" align="center">
           <Box>
