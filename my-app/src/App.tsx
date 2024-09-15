@@ -537,7 +537,7 @@ function App() {
           />
         </Flex>
       ) : (
-        <Flex gap="2vw" height="100vh">
+        <Flex gap="2vw" height="150vh">
           <Card size="4">
             <EmsCallContainer
               title="Resolved EMS Calls"
