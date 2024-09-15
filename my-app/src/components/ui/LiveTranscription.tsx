@@ -40,7 +40,9 @@ function LiveTranscription({ setSelectedConversation }: Props) {
       <Box>
         <Card size="5">
           <Heading align="left" mb="5px" weight="bold">
-            {conversation.title || "[New Call]"}
+            {`${
+              conversation[0] ? conversation[0].messageContent : "[New Call]"
+            }`}
           </Heading>
           <Text
             size="5"
@@ -49,7 +51,7 @@ function LiveTranscription({ setSelectedConversation }: Props) {
             as="div"
             style={{ color: "#03DAC6" }}
           >
-            {conversation.isLive ? "Live" : "Resolved"}
+            {"Live"}
           </Text>
           <Button
             style={{ backgroundColor: "#FFFFFF22" }}
