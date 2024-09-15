@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Conversation, Urgency } from "@/App";
-import { Box, Button, Card, Flex, Heading, Text } from '@radix-ui/themes';
+import { Box, Button, Card, Flex, Heading, Text, Separator } from '@radix-ui/themes';
 import { Dispatch, SetStateAction } from "react";
 
 type Props = {
@@ -24,7 +24,7 @@ function Call(props: Props) {
             <Box>
                 <Card size="5">
                     <Heading align="left" mb="5px" weight="bold">{conversation.title ? conversation.title : "[New Call]"}</Heading>
-                    <Text size="5" weight="bold" mb="35px" as="div" style={{ color: 'white' }}>
+                    <Text size="5" weight="bold" mb="35px" as="div" style={{ color: '#03DAC6' }}>
                         {conversation.isLive ? "Live" : "Resolved"}
                     </Text>
                     <Button style={{ backgroundColor: '#FFFFFF22' }} onClick={() => { setSelectedConversation(null) }}>Back</Button>
@@ -34,14 +34,14 @@ function Call(props: Props) {
                             <Box
                                 mt="20px"
                                 style={{
-                                    height: "400px", 
+                                    height: "400px", // Adjust height as needed
                                     overflowY: "auto",
-                                    paddingRight: "10px" 
+                                    paddingRight: "10px" // Adjusts for scrollbar width
                                 }}
                             >
-                                {conversation.messages.map((message) => (
+                                {conversation.messages.map((message, index) => (
                                     <Flex
-                        
+                                        key={index}
                                         justify={message.type === "caller" ? "start" : "end"}
                                         mb="10px"
                                     >
@@ -61,6 +61,50 @@ function Call(props: Props) {
                                 <div ref={messagesEndRef} />
                             </Box>
                         </Card>
+
+                        <Separator my="20px" />
+
+                        <Card mb="10px">
+                            <Flex justify="center" >
+                                <Box>
+                                    <Text size="4" weight="bold" as="div" >
+                                        {conversation.summary ? conversation.summary : "No summary yet"}
+                                    </Text>
+                                </Box>
+                            </Flex>
+                        </Card>
+                        <Flex justify="center" width="100%" gap="20px">
+                            <Card mb="10px">
+                                <Flex justify="center">
+                                    <Text size="4" as="div" mr="20px">
+                                        {conversation.urgency && `Urgency: ${conversation.urgency}`}
+                                    </Text>
+                                </Flex>
+                            </Card>
+                            <Card mb="10px">
+                                <Flex justify="center">
+                                    <Text size="4" as="div">
+                                        {conversation.dispatchConnected && `Dispatch Connected: ${conversation.dispatchConnected}`}
+                                    </Text>
+                                </Flex>
+                            </Card>
+                        </Flex>
+                        <Flex justify="center" width="100%" gap="20px">
+                            <Card mb="10px">
+                                <Flex justify="center">
+                                    <Text size="4" as="div" mr="20px">
+                                        {conversation.EMSName && `EMS Name: ${conversation.EMSName}`}
+                                    </Text>
+                                </Flex>
+                            </Card>
+                            <Card mb="10px" >
+                                <Flex justify="center">
+                                    <Text size="4" as="div">
+                                        {conversation.medicalEmergencyType && `Emergency Type: ${conversation.medicalEmergencyType}`}
+                                    </Text>
+                                </Flex>
+                            </Card>
+                        </Flex>
                     </Box>
                 </Card>
             </Box>
