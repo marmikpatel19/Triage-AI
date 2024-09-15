@@ -1,0 +1,438 @@
+openapi: 3.0.3
+info:
+  title: Convex App - OpenAPI 3.0
+  version: 0.0.0
+servers:
+  - url: https://polite-lobster-396.convex.cloud
+security:
+  - bearerAuth: []
+tags:
+  - name: query
+    description: Functions that read data
+  - name: mutation
+    description: Functions that write/update/delete data
+  - name: action
+    description: Functions that can make calls to external APIs
+paths:
+  /api/run/messages/listTasks:
+    post:
+      summary: Calls a query at the path messages.js:listTasks
+      tags:
+        - query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Request_messages.listTasks"
+        required: true
+      responses:
+        "200":
+          description: Convex executed your request and returned a result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response_messages.listTasks"
+        "400":
+          description: Failed operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FailedResponse"
+        "500":
+          description: Convex Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FailedResponse"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Token of the format "Bearer {token}" for normal authentication and "Convex {token}" for admin tokens.
+  schemas:
+    Request_helpers.paginateQuery:
+      type: object
+      required:
+        - args
+      properties:
+        args: {}
+
+    Response_helpers.paginateQuery:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - "success"
+            - "error"
+        errorMessage:
+          type: string
+        errorData:
+          type: object
+        value: {}
+
+    Request_ingest.embed.addEmbedding:
+      type: object
+      required:
+        - args
+      properties:
+        args: {}
+
+    Response_ingest.embed.addEmbedding:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - "success"
+            - "error"
+        errorMessage:
+          type: string
+        errorData:
+          type: object
+        value: {}
+
+    Request_ingest.embed.chunksNeedingEmbedding:
+      type: object
+      required:
+        - args
+      properties:
+        args: {}
+
+    Response_ingest.embed.chunksNeedingEmbedding:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - "success"
+            - "error"
+        errorMessage:
+          type: string
+        errorData:
+          type: object
+        value: {}
+
+    Request_ingest.embed.embedAll:
+      type: object
+      required:
+        - args
+      properties:
+        args:
+          type: object
+
+    Response_ingest.embed.embedAll:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - "success"
+            - "error"
+        errorMessage:
+          type: string
+        errorData:
+          type: object
+        value: {}
+
+    Request_ingest.embed.embedList:
+      type: object
+      required:
+        - args
+      properties:
+        args:
+          type: object
+          required:
+            - documentIds
+          properties:
+            documentIds:
+              type: array
+              items:
+                type: string
+                description: ID from table "documents"
+
+    Response_ingest.embed.embedList:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - "success"
+            - "error"
+        errorMessage:
+          type: string
+        errorData:
+          type: object
+        value: {}
+
+    Request_ingest.load.scrapeSite:
+      type: object
+      required:
+        - args
+      properties:
+        args:
+          type: object
+          required:
+            - sitemapUrl
+          properties:
+            limit:
+              type: number
+            sitemapUrl:
+              type: string
+
+    Response_ingest.load.scrapeSite:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - "success"
+            - "error"
+        errorMessage:
+          type: string
+        errorData:
+          type: object
+        value: {}
+
+    Request_ingest.load.fetchSingle:
+      type: object
+      required:
+        - args
+      properties:
+        args:
+          type: object
+          required:
+            - url
+          properties:
+            url:
+              type: string
+
+    Response_ingest.load.fetchSingle:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - "success"
+            - "error"
+        errorMessage:
+          type: string
+        errorData:
+          type: object
+        value: {}
+
+    Request_ingest.load.updateDocument:
+      type: object
+      required:
+        - args
+      properties:
+        args: {}
+
+    Response_ingest.load.updateDocument:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - "success"
+            - "error"
+        errorMessage:
+          type: string
+        errorData:
+          type: object
+        value: {}
+
+    Request_ingest.load.eraseStaleDocumentsAndChunks:
+      type: object
+      required:
+        - args
+      properties:
+        args:
+          type: object
+          required:
+            - forReal
+          properties:
+            forReal:
+              type: boolean
+
+    Response_ingest.load.eraseStaleDocumentsAndChunks:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - "success"
+            - "error"
+        errorMessage:
+          type: string
+        errorData:
+          type: object
+        value: {}
+
+    Request_messages.listTasks:
+      type: object
+      required:
+        - args
+      properties:
+        args: {}
+
+    Response_messages.listTasks:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - "success"
+            - "error"
+        errorMessage:
+          type: string
+        errorData:
+          type: object
+        value: {}
+
+    Request_serve.answer:
+      type: object
+      required:
+        - args
+      properties:
+        args:
+          type: object
+          required:
+            - sessionId
+          properties:
+            sessionId:
+              type: string
+
+    Response_serve.answer:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - "success"
+            - "error"
+        errorMessage:
+          type: string
+        errorData:
+          type: object
+        value: {}
+
+    Request_serve.getMessages:
+      type: object
+      required:
+        - args
+      properties:
+        args: {}
+
+    Response_serve.getMessages:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - "success"
+            - "error"
+        errorMessage:
+          type: string
+        errorData:
+          type: object
+        value: {}
+
+    Request_serve.getChunks:
+      type: object
+      required:
+        - args
+      properties:
+        args: {}
+
+    Response_serve.getChunks:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - "success"
+            - "error"
+        errorMessage:
+          type: string
+        errorData:
+          type: object
+        value: {}
+
+    Request_serve.addBotMessage:
+      type: object
+      required:
+        - args
+      properties:
+        args: {}
+
+    Response_serve.addBotMessage:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - "success"
+            - "error"
+        errorMessage:
+          type: string
+        errorData:
+          type: object
+        value: {}
+
+    Request_serve.updateBotMessage:
+      type: object
+      required:
+        - args
+      properties:
+        args: {}
+
+    Response_serve.updateBotMessage:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - "success"
+            - "error"
+        errorMessage:
+          type: string
+        errorData:
+          type: object
+        value: {}
+
+    FailedResponse:
+      type: object
+      properties: {}

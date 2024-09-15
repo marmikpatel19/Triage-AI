@@ -5,6 +5,7 @@ declare const colors: {
   gold: string;
   green: string;
   blue: string;
+  purple: string;
 };
 
 export default colors;

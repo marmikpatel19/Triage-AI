@@ -14,11 +14,9 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as addMessages from "../addMessages";
+import type * as getMessages from "../getMessages";
 import type * as helpers from "../helpers";
-import type * as ingest_embed from "../ingest/embed";
-import type * as ingest_load from "../ingest/load";
-import type * as messages from "../messages";
-import type * as serve from "../serve";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -29,11 +27,9 @@ import type * as serve from "../serve";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  addMessages: typeof addMessages;
+  getMessages: typeof getMessages;
   helpers: typeof helpers;
-  "ingest/embed": typeof ingest_embed;
-  "ingest/load": typeof ingest_load;
-  messages: typeof messages;
-  serve: typeof serve;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,
