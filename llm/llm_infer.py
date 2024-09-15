@@ -12,7 +12,7 @@ app = App(name="triage_ai")
 def download():
     from huggingface_hub import snapshot_download
     from huggingface_hub import login
-    login(token='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')
+    login(token=insert_huggingface_token)
     snapshot_download(repo_id=MODEL_NAME)
 
 # Update the image to include the necessary packages for Mistral-Nemo
@@ -104,11 +104,11 @@ class MistralNemo:
         t0 = time.time()
         print("Loading Mistral-Nemo model...")
         self.embeddings, self.index, self.docs = init_db.remote()
-        self.model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, token = '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')  # Load the Mistral-Nemo model
+        self.model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, token=insert_huggingface_token)  # Load the Mistral-Nemo model
         self.model = self.model.to("cuda")
         print(f"Model loaded in {time.time() - t0:.2f}s")
 
-        self.tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, token = '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')
+        self.tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, token=insert_huggingface_token)
         self.streamer = TextIteratorStreamer(self.tokenizer, skip_prompt=True, skip_special_tokens=True)
         self.history = []
 
