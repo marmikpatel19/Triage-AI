@@ -1,38 +1,38 @@
 import { ConvexAiChat } from "@/aiChat";
 import { Link } from "@/components/typography/link";
 import { Button } from "@/components/ui/button";
-import { Avatar, Box, Card, Flex, Heading, Text } from '@radix-ui/themes';
-import { Pie } from 'react-chartjs-2';
+import { Avatar, Box, Card, Flex, Heading, Text } from "@radix-ui/themes";
+import { Pie } from "react-chartjs-2";
 import EmsCallContainer from "./components/ui/EmsCallContainer";
 
 export type Conversation = {
-  id: String,
-  isLive: boolean,
-  summary: string | null, 
-  title: String | null, 
-  dispatchConnected: boolean,
-  EMSName: String | null,
-  urgency: Urgency | null,
-  medicalEmergencyType: MedicalEmergencyType | null,
-  messages: Message[]
-}
+  id: String;
+  isLive: boolean;
+  summary: string | null;
+  title: String | null;
+  dispatchConnected: boolean;
+  EMSName: String | null;
+  urgency: Urgency | null;
+  medicalEmergencyType: MedicalEmergencyType | null;
+  messages: Message[];
+};
 
 export type Message = {
-  id: String,
-  type: MessageAuthor,
-  content: String
-}
+  id: String;
+  type: MessageAuthor;
+  content: String;
+};
 
 export enum MessageAuthor {
   CALLER = "caller",
-  LLM = "llm"
+  LLM = "llm",
 }
 
 export enum Urgency {
   LOW = "low",
   MEDIUM = "medium",
-  HIGH= "high",
-  UNDECIDED="undecided"
+  HIGH = "high",
+  UNDECIDED = "undecided",
 }
 
 export enum MedicalEmergencyType {
@@ -41,18 +41,19 @@ export enum MedicalEmergencyType {
   FALL_INJURY = "fall injury",
   SEIZURE = "seizure",
   STROKE_SYMPTOMS = "stroke symptoms",
-  UNDECIDED = "undecided"
+  UNDECIDED = "undecided",
 }
 
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { useState } from "react";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { useState, useEffect } from "react";
 import Call from "./components/ui/call";
 
 // Register necessary elements with Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function App() {
-  const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
+  const [selectedConversation, setSelectedConversation] =
+    useState<Conversation | null>(null);
 
   const mockData: Conversation[] = [
     {
@@ -68,14 +69,14 @@ function App() {
         {
           id: "1",
           type: MessageAuthor.CALLER,
-          content: "Hello, I need help! There's been an accident."
+          content: "Hello, I need help! There's been an accident.",
         },
         {
           id: "2",
           type: MessageAuthor.LLM,
-          content: "Please stay calm. Can you tell me your location?"
-        }
-      ]
+          content: "Please stay calm. Can you tell me your location?",
+        },
+      ],
     } as Conversation,
     {
       id: "1232",
@@ -90,14 +91,14 @@ function App() {
         {
           id: "14",
           type: MessageAuthor.CALLER,
-          content: "Hello, I need help! There's been an accident."
+          content: "Hello, I need help! There's been an accident.",
         },
         {
           id: "22",
           type: MessageAuthor.LLM,
-          content: "Please stay calm. Can you tell me your location?"
-        }
-      ]
+          content: "Please stay calm. Can you tell me your location?",
+        },
+      ],
     } as Conversation,
     {
       id: "456",
@@ -112,19 +113,19 @@ function App() {
         {
           id: "1",
           type: MessageAuthor.CALLER,
-          content: "My father is having chest pain, please hurry!"
+          content: "My father is having chest pain, please hurry!",
         },
         {
           id: "2",
           type: MessageAuthor.LLM,
-          content: "Help is on the way. Is he conscious?"
+          content: "Help is on the way. Is he conscious?",
         },
         {
           id: "3",
           type: MessageAuthor.CALLER,
-          content: "Yes, but he's in a lot of pain."
-        }
-      ]
+          content: "Yes, but he's in a lot of pain.",
+        },
+      ],
     } as Conversation,
     {
       id: "789",
@@ -139,24 +140,25 @@ function App() {
         {
           id: "1",
           type: MessageAuthor.CALLER,
-          content: "There's a car accident on Highway 7, multiple injuries."
+          content: "There's a car accident on Highway 7, multiple injuries.",
         },
         {
           id: "2",
           type: MessageAuthor.LLM,
-          content: "Emergency services are on the way. Can you provide details on the injuries?"
+          content:
+            "Emergency services are on the way. Can you provide details on the injuries?",
         },
         {
           id: "3",
           type: MessageAuthor.CALLER,
-          content: "Two people are unconscious, and one has a broken leg."
+          content: "Two people are unconscious, and one has a broken leg.",
         },
         {
           id: "4",
           type: MessageAuthor.LLM,
-          content: "Stay with them. Emergency services should arrive shortly."
-        }
-      ]
+          content: "Stay with them. Emergency services should arrive shortly.",
+        },
+      ],
     } as Conversation,
     {
       id: "1011",
@@ -171,24 +173,27 @@ function App() {
         {
           id: "1",
           type: MessageAuthor.CALLER,
-          content: "My child is choking, I need help immediately!"
+          content: "My child is choking, I need help immediately!",
         },
         {
           id: "2",
           type: MessageAuthor.LLM,
-          content: "Help is on the way. Please perform the Heimlich maneuver if you know how."
+          content:
+            "Help is on the way. Please perform the Heimlich maneuver if you know how.",
         },
         {
           id: "3",
           type: MessageAuthor.CALLER,
-          content: "I did it! They're breathing now, but they're still coughing."
+          content:
+            "I did it! They're breathing now, but they're still coughing.",
         },
         {
           id: "4",
           type: MessageAuthor.LLM,
-          content: "EMS will be there shortly. Keep them calm and monitor their breathing."
-        }
-      ]
+          content:
+            "EMS will be there shortly. Keep them calm and monitor their breathing.",
+        },
+      ],
     } as Conversation,
     {
       id: "1213",
@@ -203,29 +208,29 @@ function App() {
         {
           id: "1",
           type: MessageAuthor.CALLER,
-          content: "I slipped on the stairs, and I think I sprained my ankle."
+          content: "I slipped on the stairs, and I think I sprained my ankle.",
         },
         {
           id: "2",
           type: MessageAuthor.LLM,
-          content: "Help is on the way. Try to keep the ankle elevated."
+          content: "Help is on the way. Try to keep the ankle elevated.",
         },
         {
           id: "3",
           type: MessageAuthor.CALLER,
-          content: "Okay, I'm doing that now. Thank you."
-        }
-      ]
+          content: "Okay, I'm doing that now. Thank you.",
+        },
+      ],
     } as Conversation,
-  ]
+  ];
 
   const data = {
     datasets: [
       {
-        label: '# of Tasks',
-        data: [10, 20, 30, 10], 
-        backgroundColor: ['#03DAC6', '#BB86FC', '#CF6679', '#3700B3'], 
-        hoverBackgroundColor: ['#03DAC6', '#BB86FC', '#CF6679', '#3700B3'], 
+        label: "# of Tasks",
+        data: [10, 20, 30, 10],
+        backgroundColor: ["#03DAC6", "#BB86FC", "#CF6679", "#3700B3"],
+        hoverBackgroundColor: ["#03DAC6", "#BB86FC", "#CF6679", "#3700B3"],
       },
     ],
   };
@@ -233,23 +238,42 @@ function App() {
   const triageAIData = {
     datasets: [
       {
-        label: '# of Calls',
-        data: [15, 35], 
-        backgroundColor: ['#03DAC6', '#BB86FC'],
-        hoverBackgroundColor: ['#03DAC6', '#BB86FC'],
+        label: "# of Calls",
+        data: [15, 35],
+        backgroundColor: ["#03DAC6", "#BB86FC"],
+        hoverBackgroundColor: ["#03DAC6", "#BB86FC"],
       },
     ],
   };
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSelectedConversation(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   return (
     <>
       {selectedConversation ? (
-        <Call conversation={selectedConversation} setSelectedConversation={setSelectedConversation}/>
+        <Call
+          conversation={selectedConversation}
+          setSelectedConversation={setSelectedConversation}
+        />
       ) : (
         <Flex justify="center" align="center">
           <Box>
             <Card size="5">
-              <Heading align="left" mb="30px">Triage AI</Heading>
+              <Heading align="left" mb="30px">
+                Triage AI
+              </Heading>
 
               <Flex gap="7" align="center" mb="140px">
                 <Box width="175px" height="130px">
@@ -257,7 +281,11 @@ function App() {
                     <Flex direction="column">
                       <Box>
                         <Text size="9" weight="bold" mb="10px" ml="40px">
-                          {mockData.filter((conversation) => conversation.isLive).length}
+                          {
+                            mockData.filter(
+                              (conversation) => conversation.isLive
+                            ).length
+                          }
                         </Text>
                       </Box>
                       <Text size="5" weight="bold" align="center">
@@ -266,29 +294,37 @@ function App() {
                     </Flex>
                   </Card>
                 </Box>
-                <Box width="175px" height="130px">  
+                <Box width="175px" height="130px">
                   <Card>
                     <Pie data={data} />
-                    <Text size="5" weight="bold">Urgency Distribution</Text>
+                    <Text size="5" weight="bold">
+                      Urgency Distribution
+                    </Text>
                   </Card>
                 </Box>
                 <Box width="175px" height="130px">
                   <Card>
                     <Pie data={triageAIData} />
-                    <Text size="5" weight="bold">Outcome Distribution</Text>
+                    <Text size="5" weight="bold">
+                      Outcome Distribution
+                    </Text>
                   </Card>
                 </Box>
               </Flex>
 
-              <EmsCallContainer 
-                title="Live EMS Calls" 
-                conversations={mockData.filter((conversation) => conversation.isLive)} 
-                setSelectedConversation={setSelectedConversation} 
+              <EmsCallContainer
+                title="Live EMS Calls"
+                conversations={mockData.filter(
+                  (conversation) => conversation.isLive
+                )}
+                setSelectedConversation={setSelectedConversation}
               />
-              <EmsCallContainer 
-                title="Resolved EMS Calls" 
-                conversations={mockData.filter((conversation) => !conversation.isLive)} 
-                setSelectedConversation={setSelectedConversation} 
+              <EmsCallContainer
+                title="Resolved EMS Calls"
+                conversations={mockData.filter(
+                  (conversation) => !conversation.isLive
+                )}
+                setSelectedConversation={setSelectedConversation}
               />
             </Card>
           </Box>
