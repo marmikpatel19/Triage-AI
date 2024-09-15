@@ -82,9 +82,14 @@ function UserDashboard({
               <Text size="5" weight="bold" style={{ color: "white" }}>
                 Finished
               </Text>
-              <Text size="4" style={{ color: "#BB86FC" }}>
-                {stats.finished} <span>+{stats.finishedTasks} tasks</span>
-              </Text>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Text size="4" style={{ color: "#BB86FC" }}>
+                  {stats.finished}
+                </Text>
+                <Text size="2" style={{ color: "#ADF0DD", marginLeft: '4px' }}>
+                  +{stats.finishedTasks} tasks
+                </Text>
+              </div>
             </Box>
           </Box>
 
@@ -101,9 +106,14 @@ function UserDashboard({
               <Text size="5" weight="bold" style={{ color: "white" }}>
                 Tracked
               </Text>
-              <Text size="4" style={{ color: "#BB86FC" }}>
-                {stats.tracked}h <span>{stats.trackedHoursChange} hours</span>
-              </Text>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Text size="4" style={{ color: "#BB86FC" }}>
+                  {stats.tracked}h
+                </Text>
+                <Text size="2" style={{ color: "#E54D2E", marginLeft: '4px' }}>
+                  {stats.trackedHoursChange} hours
+                </Text>
+              </div>
             </Box>
           </Box>
 
@@ -120,9 +130,14 @@ function UserDashboard({
               <Text size="5" weight="bold" style={{ color: "white" }}>
                 Efficiency
               </Text>
-              <Text size="4" style={{ color: "#BB86FC" }}>
-                {stats.efficiency}% <span>{stats.efficiencyChange}</span>
-              </Text>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Text size="4" style={{ color: "#BB86FC" }}>
+                {stats.efficiency}%
+                </Text>
+                <Text size="2" style={{ color: "#ADF0DD", marginLeft: '4px' }}>
+                  {stats.efficiencyChange}
+                </Text>
+              </div>
             </Box>
           </Box>
         </Flex>
