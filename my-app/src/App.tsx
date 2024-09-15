@@ -145,7 +145,7 @@ function App() {
       id: "789",
       isLive: false,
       summary: "Accident on Highway 7, multiple injuries",
-      title: "Car accident ",
+      title: "Car accident on Highway 7, multiple injuries, outer",
       dispatchConnected: true,
       EMSName: "EMS Team 3",
       urgency: Urgency.HIGH,
@@ -240,10 +240,10 @@ function App() {
       id: "1011",
       isLive: false,
       summary: "Medical emergency - Resolved",
-      title: "Choking child",
+      title: "Exposure to cyanide, concentration unknwown",
       dispatchConnected: true,
       EMSName: "EMS Team 2",
-      urgency: Urgency.MEDIUM,
+      urgency: Urgency.HIGH,
       medicalEmergencyType: MedicalEmergencyType.SEIZURE,
       messages: [
         {
@@ -275,10 +275,10 @@ function App() {
       id: "1213",
       isLive: false,
       summary: "Minor accident",
-      title: "Slipped on the stairs; minor injury",
+      title: "back pain, regular pain",
       dispatchConnected: true,
       EMSName: "EMS Team 1",
-      urgency: Urgency.LOW,
+      urgency: Urgency.HIGH,
       medicalEmergencyType: MedicalEmergencyType.UNDECIDED, // Default to UNDECIDED
       messages: [
         {
@@ -302,7 +302,7 @@ function App() {
       id: "1011",
       isLive: false,
       summary: "Medical emergency - Resolved",
-      title: "Choking child",
+      title: "Minimal dialouge, poison control suspected",
       dispatchConnected: true,
       EMSName: "EMS Team 2",
       urgency: Urgency.MEDIUM,
@@ -337,7 +337,7 @@ function App() {
       id: "1213",
       isLive: false,
       summary: "Minor accident",
-      title: "Slipped on the stairs; minor injury",
+      title: "Arm injusy on west boston",
       dispatchConnected: true,
       EMSName: "EMS Team 1",
       urgency: Urgency.LOW,
@@ -364,7 +364,7 @@ function App() {
       id: "1214",
       isLive: false,
       summary: "Medical emergency - Resolved",
-      title: "Choking child",
+      title: "biking accident, head damage",
       dispatchConnected: true,
       EMSName: "EMS Team 2",
       urgency: Urgency.MEDIUM,
@@ -399,7 +399,34 @@ function App() {
       id: "1215",
       isLive: false,
       summary: "Minor accident",
-      title: "Slipped on the stairs; minor injury",
+      title: "eldery fell down the stairs--east Boston",
+      dispatchConnected: true,
+      EMSName: "EMS Team 1",
+      urgency: Urgency.MEDIUM,
+      medicalEmergencyType: MedicalEmergencyType.UNDECIDED, // Default to UNDECIDED
+      messages: [
+        {
+          id: "1",
+          type: MessageAuthor.CALLER,
+          content: "I slipped on the stairs, and I think I sprained my ankle.",
+        },
+        {
+          id: "2",
+          type: MessageAuthor.LLM,
+          content: "Help is on the way. Try to keep the ankle elevated.",
+        },
+        {
+          id: "3",
+          type: MessageAuthor.CALLER,
+          content: "Okay, I'm doing that now. Thank you.",
+        },
+      ],
+    } as Conversation,
+    {
+      id: "1215",
+      isLive: false,
+      summary: "Minor accident",
+      title: "ankle injury",
       dispatchConnected: true,
       EMSName: "EMS Team 1",
       urgency: Urgency.LOW,
@@ -426,37 +453,10 @@ function App() {
       id: "1215",
       isLive: false,
       summary: "Minor accident",
-      title: "Slipped on the stairs; minor injury",
+      title: "internal bleeding; ems connected",
       dispatchConnected: true,
       EMSName: "EMS Team 1",
-      urgency: Urgency.LOW,
-      medicalEmergencyType: MedicalEmergencyType.UNDECIDED, // Default to UNDECIDED
-      messages: [
-        {
-          id: "1",
-          type: MessageAuthor.CALLER,
-          content: "I slipped on the stairs, and I think I sprained my ankle.",
-        },
-        {
-          id: "2",
-          type: MessageAuthor.LLM,
-          content: "Help is on the way. Try to keep the ankle elevated.",
-        },
-        {
-          id: "3",
-          type: MessageAuthor.CALLER,
-          content: "Okay, I'm doing that now. Thank you.",
-        },
-      ],
-    } as Conversation,
-    {
-      id: "1215",
-      isLive: false,
-      summary: "Minor accident",
-      title: "Slipped on the stairs; minor injury",
-      dispatchConnected: true,
-      EMSName: "EMS Team 1",
-      urgency: Urgency.LOW,
+      urgency: Urgency.UNDECIDED,
       medicalEmergencyType: MedicalEmergencyType.UNDECIDED, // Default to UNDECIDED
       messages: [
         {
@@ -537,7 +537,7 @@ function App() {
           />
         </Flex>
       ) : (
-        <Flex gap="2vw" height="100vh">
+        <Flex gap="2vw" height="150vh">
           <Card size="4">
             <EmsCallContainer
               title="Resolved EMS Calls"
