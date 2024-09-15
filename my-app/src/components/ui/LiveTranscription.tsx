@@ -23,13 +23,14 @@ function LiveTranscription({ setSelectedConversation }: Props) {
   // Subscribe to the conversation's messages in Convex
   const conversation = useQuery(api.getMessages.listTasks) || [];
   console.log(conversation);
+  console.log(conversation?.messages);
 
   // Scroll to the bottom of the chat when new messages are added
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [conversation?.messages]); // Ensure this effect runs when messages are updated
+  }, [conversation]); // Ensure this effect runs when messages are updated
 
   // If conversation isn't loaded yet, show a loading state
   if (!conversation) return <Text>Loading...</Text>;
@@ -69,8 +70,8 @@ function LiveTranscription({ setSelectedConversation }: Props) {
                   paddingRight: "10px",
                 }}
               >
-                {conversation?.messages?.length > 0 ? (
-                  conversation.messages.map((message, index) => (
+                {conversation?.length > 0 ? (
+                  conversation.map((message, index) => (
                     <Flex
                       key={index}
                       justify={
