@@ -11,6 +11,7 @@ import {
 } from "recharts";
 import EmsCallContainer from "./EmsCallContainer";
 import colors from "../../colors";
+import { CiCalendar } from "react-icons/ci";
 
 // Props for the user data, stats, and tasks
 type DashboardProps = {
@@ -51,9 +52,17 @@ function UserDashboard({
       <Card style={{ display: "flex", flexDirection: "column" }}>
         {/* Greeting Section */}
         <Box mt="24px" mb="10px">
-          <Text weight="bold" style={{ color: "white", fontSize: "2.5rem" }}>
-            Hello, {userName}.
-          </Text>
+          <Flex justify="between">
+            <Text weight="bold" style={{ color: "white", fontSize: "2.5rem" }}>
+              Hello, {userName}.
+            </Text>
+            <Flex justify="end">
+              <Text style={{ color: "white", fontSize: "1rem" , marginTop: "20px"}}>
+                15 Aug, 2024
+              </Text>
+              <CiCalendar style={{ color: "white", fontSize: "1.5rem" , marginTop: "18px", marginLeft: "8px"}}/>
+              </Flex>
+          </Flex>
         </Box>
         <Blockquote color="violet">
           {" "}
