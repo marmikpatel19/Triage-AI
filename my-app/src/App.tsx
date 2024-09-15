@@ -3,6 +3,7 @@ import { Link } from "@/components/typography/link";
 import { Button } from "@/components/ui/button";
 import { Avatar, Box, Card, Flex, Heading, Text } from '@radix-ui/themes';
 import { Pie } from 'react-chartjs-2';
+import EmsCallContainer from "./components/ui/EmsCallContainer";
 
 export type Conversation = {
   id: String,
@@ -21,15 +22,16 @@ export type Message = {
   content: String
 }
 
-enum MessageAuthor {
+export enum MessageAuthor {
   CALLER = "caller",
   LLM = "llm"
 }
 
-enum Urgency {
+export enum Urgency {
   LOW = "low",
   MEDIUM = "medium",
-  HIGH= "high"
+  HIGH= "high",
+  UNDECIDED="undecided"
 }
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
@@ -62,10 +64,31 @@ function App() {
       ]
     } as Conversation,
     {
-      id: "456",
+      id: "1232",
       isLive: true,
       summary: null,
       title: null,
+      dispatchConnected: false,
+      EMSName: null,
+      urgency: Urgency.UNDECIDED,
+      messages: [
+        {
+          id: "14",
+          type: MessageAuthor.CALLER,
+          content: "Hello, I need help! There's been an accident."
+        },
+        {
+          id: "22",
+          type: MessageAuthor.LLM,
+          content: "Please stay calm. Can you tell me your location?"
+        }
+      ]
+    } as Conversation,
+    {
+      id: "456",
+      isLive: true,
+      summary: null,
+      title: "Chest pain; elderly",
       dispatchConnected: true,
       EMSName: "EMS Team 7",
       urgency: Urgency.HIGH,
@@ -90,11 +113,11 @@ function App() {
     {
       id: "789",
       isLive: false,
-      summary: "Accident on Highway 7",
-      title: "Resolved",
+      summary: "Accident on Highway 7, multiple injuries",
+      title: "Car accident ",
       dispatchConnected: true,
       EMSName: "EMS Team 3",
-      urgency: Urgency.MEDIUM,
+      urgency: Urgency.HIGH,
       messages: [
         {
           id: "1",
@@ -122,10 +145,10 @@ function App() {
       id: "1011",
       isLive: false,
       summary: "Medical emergency - Resolved",
-      title: "Resolved",
+      title: "Choking child",
       dispatchConnected: true,
       EMSName: "EMS Team 2",
-      urgency: Urgency.HIGH,
+      urgency: Urgency.MEDIUM,
       messages: [
         {
           id: "1",
@@ -153,7 +176,7 @@ function App() {
       id: "1213",
       isLive: false,
       summary: "Minor accident",
-      title: "Resolved",
+      title: "Slipped on the stairs; minor injury",
       dispatchConnected: true,
       EMSName: "EMS Team 1",
       urgency: Urgency.LOW,
@@ -181,9 +204,9 @@ function App() {
     datasets: [
       {
         label: '# of Tasks',
-        data: [10, 20, 30, 10], // Example data, replace with your actual data
-        backgroundColor: ['#FF6384', '#FFCE56', '#36A2EB', '#FFFFFF'],
-        hoverBackgroundColor: ['#FF6384', '#FFCE56', '#36A2EB', '#FFFFFF'],
+        data: [10, 20, 30, 10], 
+        backgroundColor: ['#D1FAE5', '#FEF3C7', '#FECACA', '#F9FAFB'], 
+        hoverBackgroundColor: ['#A7F3D0', '#FDE68A', '#FCA5A5', '#F3F4F6'], 
       },
     ],
   };
@@ -192,7 +215,7 @@ function App() {
     datasets: [
       {
         label: '# of Calls',
-        data: [15, 35], // Example data, replace with your actual data
+        data: [15, 35], 
         backgroundColor: ['#FF9F40', '#4BC0C0'],
         hoverBackgroundColor: ['#FF9F40', '#4BC0C0'],
       },
@@ -226,7 +249,16 @@ function App() {
             </Box>
           </Flex>
 
-          {/* Content goes here */}
+          {/* <Box width="800px" height="500px">
+            <Card>
+              <Text size="5" weight="bold">Live EMS Calls</Text>
+              
+            </Card>
+          </Box> */}
+
+          <EmsCallContainer title="Live EMS Calls" conversations={mockData.filter((conversation) => conversation.isLive == true)}/>
+          <EmsCallContainer title="Resolved EMS Calls" conversations={mockData.filter((conversation) => conversation.isLive == false)}/>
+
         </Card>
       </Box>
     </Flex>
