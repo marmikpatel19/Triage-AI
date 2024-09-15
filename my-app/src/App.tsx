@@ -221,8 +221,8 @@ function App() {
       {
         label: '# of Tasks',
         data: [10, 20, 30, 10], 
-        backgroundColor: ['#D1FAE5', '#FEF3C7', '#FECACA', '#F9FAFB'], 
-        hoverBackgroundColor: ['#A7F3D0', '#FDE68A', '#FCA5A5', '#F3F4F6'], 
+        backgroundColor: ['#03DAC6', '#BB86FC', '#CF6679', '#3700B3'], 
+        hoverBackgroundColor: ['#03DAC6', '#BB86FC', '#CF6679', '#3700B3'], 
       },
     ],
   };
@@ -232,35 +232,43 @@ function App() {
       {
         label: '# of Calls',
         data: [15, 35], 
-        backgroundColor: ['#FF9F40', '#4BC0C0'],
-        hoverBackgroundColor: ['#FF9F40', '#4BC0C0'],
+        backgroundColor: ['#03DAC6', '#BB86FC'],
+        hoverBackgroundColor: ['#03DAC6', '#BB86FC'],
       },
     ],
   };
 
   return (
-    <Flex justify="center" justify-text="left" align="center" style={{ height: '100vh' }}>
-      <Box maxWidth="1000px">
+    <Flex justify="center" justify-text="left" align="center"  >
+      <Box>
         <Card size="5">
-          <Heading align="left">Triage AI</Heading>
+          <Heading align="left" mb="30px">Triage AI</Heading>
 
-          <Flex gap="3">
-            <Box width="200px" height="100px">
+          <Flex gap="7" align="center" mb="140px">
+            <Box width="175px" height="130px">
               <Card>
-                <Text size="9">8</Text>
-                <Text size="5" weight="bold">Live Calls</Text>
+                <Flex direction="column">
+                  <Box >
+                    <Text size="9" weight="bold" mb="10px" ml="40px">
+                      {mockData.filter((conversation) => conversation.isLive === true).length}
+                    </Text>
+                  </Box>
+                  <Text size="5" weight="bold" align="center">
+                    Live Calls
+                  </Text>
+                </Flex>
               </Card>
             </Box>
-            <Box width="200px" height="100px">
+            <Box width="175px" height="130px">  
               <Card>
-                <Pie data={data} />
+                <Pie data={data}/>
                 <Text size="5" weight="bold">Urgency Distribution</Text>
               </Card>
             </Box>
-            <Box width="200px" height="100px">
+            <Box width="175px" height="130px">
               <Card>
                 <Pie data={triageAIData} />
-                <Text size="5" weight="bold">Outcome Distribution</Text>
+                <Text size="5" weight="bold" >Outcome Distribution</Text>
               </Card>
             </Box>
           </Flex>
